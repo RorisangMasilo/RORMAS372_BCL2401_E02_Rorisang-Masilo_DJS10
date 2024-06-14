@@ -5,7 +5,18 @@ function App() {
   const [posts, sePosts] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect (())
+  useEffect (() => {
+    fetch(`https://jsonplaceholder.typicode.com/posts`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => setPosts(data))
+    .catch(error => setError(error.message));
+  }, []);
+
   return (
     <>
       <div>
